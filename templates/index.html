@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<style>
+		.navbar-dark {
+			background: #c31432;
+			background: -webkit-linear-gradient(to right, #c31432, #240b36);
+			background: linear-gradient(to right, #c31432, #240b36);
+		}
+		.sticky-nav {
+			position: sticky;
+			top: 0;
+		}
+		.navbar-brand{
+			margin-left: 20px;
+		}
+		.form-control{
+			background: linear-gradient(to right, rgba(195, 20, 50, 0.6), rgba(36, 11, 54, 0.6));
+			width: 500px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 20px;
+			font-weight: bold;
+			color: white;
+			border: 2px solid white;
+		}
+		@media screen and (max-width: 520px){
+			.form-control{
+				width: 100%;
+			}
+		}
+		#imagen{
+			height: 300px;
+			width: 300px;
+		}
+		body{
+			background-image: url('https://miro.medium.com/max/1600/0*M5JNCGWJ9ox37i-E.jpg');
+			background-repeat: no-repeat;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-dark navbar-expand fixed-top sticky-nav">
+        <a class="navbar-brand" href="{{url_for('index') }}">Object Detection</a>
+    </nav>
+	<p class="text-danger text-center mt-3">{{err}}</p>
+	<form class="container" action="upload" method="post" enctype="multipart/form-data">
+		<img id="imagen" class="form-control"/>
+		<input type="file" name="file" id="inputFile1" class="form-control">
+		<input type="submit" value="Detect Objects" class="form-control">
+    </form>
+</body>
+    <script>
+        function init() {
+            var inputFile = document.getElementById('inputFile1');
+            inputFile.addEventListener('change', mostrarImagen, false);
+        }
+        function mostrarImagen(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var img = document.getElementById('imagen');
+                img.src = event.target.result;
+                img.width = 500;
+                img.height = 500;
+            }
+            reader.readAsDataURL(file);
+        }
+        window.addEventListener('load', init, false);
+    </script>
+</html>
